@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Splitsen</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #game-container {
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .tree-top {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .tree-branches {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .tree-branches::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 25%;
+            width: 50%;
+            height: 20px;
+            border-left: 3px solid black;
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .tree-values {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .tree-value {
+            font-size: 40px;
+            width: 70px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .correct {
+            background-color: #b6fcb6;
+        }
+
+        .incorrect {
+            background-color: #fcb6b6;
+        }
+
+        .keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 60px;
+        }
+
+        .key-button {
+            font-size: 30px;
+            padding: 10px 20px;
+            background-color: #87cefa;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 60px;
+        }
+
+        .key-button:hover {
+            background-color: #00bfff;
+        }
+
+
+        #timer,
+        #score,
+        #point-counter {
+            font-size: 24px;
+            color: gray;
+            margin: 10px;
+        }
+
+        #settings button,
+        #player-screen button {
+            font-size: 24px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #32cd32;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #score-bar-container {
+            width: 80%;
+            height: 30px;
+            border: none;
+            margin: 20px auto;
+            display: flex;
+        }
+
+        .score-segment {
+            height: 100%;
+        }
+
+        .green {
+            background-color: #32cd32;
+        }
+
+        .red {
+            background-color: #ff6347;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game-container">
+        <h1>Splitsen</h1>
+
+        <!-- Juf Settings -->
+        <div id="settings">
+            <h2>Juf Settings</h2>
+            <label for="min-num">Min getal: </label>
+            <input type="number" id="min-num" value="1" min="1" max="20">
+            <label for="max-num">Max getal: </label>
+            <input type="number" id="max-num" value="10" min="1" max="20">
+            <br><br>
+            <div>
+                <label>Tijd :</label><br>
+                <button onclick="selectDuration(1)">1 min</button>
+                <button onclick="selectDuration(2)">2 min</button>
+                <button onclick="selectDuration(3)">3 min</button>
+                <button onclick="selectDuration(4)">4 min</button>
+                <button onclick="selectDuration(5)">5 min</button>
+            </div>
+
+            <script>
+                let selectedDuration = 4; // valeur par d&eacute;faut
+
+                function selectDuration(minutes) {
+                    selectedDuration = minutes;
+
+                    // Met &agrave; jour la surbrillance des boutons
+                    document.querySelectorAll('div > button').forEach(btn => {
+                        btn.classList.toggle('selected', parseInt(btn.textContent) === minutes);
+                    });
+                }
+
+                // S&eacute;lection initiale sur 4 minutes
+                selectDuration(4);
+            </script>
+
+            <style>
+                button {
+                    margin: 5px;
+                    padding: 8px 12px;
+                    cursor: pointer;
+                }
+
+                button.selected {
+                    background-color: #4CAF50;
+                    color: white;
+                }
+            </style>
+            <br>
+            <button onclick="goToPlayerScreen()">Ok</button>
+        </div>
+
+        <!-- Player name -->
+        <div id="player-screen" class="hidden">
+            <label for="player-name">Naam: </label>
+            <input type="text" id="player-name" placeholder="Schrijf jouw naam">
+            <br>
+            <button onclick="startGame()">Start</button>
+        </div>
+
+        <!-- Timer and Score -->
+        <div id="timer" class="hidden"></div>
+        <div id="point-counter" class="hidden"></div>
+        <div id="score" class="hidden"></div>
+
+        <!-- Tree -->
+        <div class="tree hidden" id="split-tree">
+            <div class="tree-top" id="tree-top-number">8</div>
+            <div class="tree-branches">
+                <div class="tree-values">
+                    <div class="tree-value" id="known-part">4</div>
+                    <div class="tree-value" id="missing-part">?</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyboard -->
+        <div class="keyboard hidden" id="keyboard"></div>
+
+        <!-- Score bar -->
+        <div id="score-bar-container" class="hidden"></div>
+        <img id="funny-image" class="hidden" src="" alt="Funny Reward" style="max-width: 200px; margin-top: 20px;">
+
+    </div>
+
+
+    <script>
+        const funnyImages = [
+            "https://i.giphy.com/l3V0lsGtTMSB5YNgc.webp", // panda qui danse
+            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXltdHlla3Y1NGdkN2kybmVuZG9vY2swcHoxaDBkeWEzeW0xdDQzOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGjrCVCnu01XOFi/giphy.gif", // chiot qui saute
+            "https://i.giphy.com/tnhtmbty3GXfi.webp", // loutre qui danse
+            "https://i.giphy.com/26AHG5KGFxSkUWw1i.webp", // licorne pixel
+            "https://i.giphy.com/k08Q4OCDcO3rCTfkJL.webp", // chien qui re&ccedil;oit m&eacute;daille
+            "https://i.giphy.com/PUITId5Avf9fLPpD3S.webp", // muppet
+        ];
+        let totalQuestions = 0;
+        let correctAnswers = 0;
+        let timerInterval;
+        let timeLeft = 300;
+        let currentMissing = 0;
+        let min, max;
+
+        function goToPlayerScreen() {
+            min = parseInt(document.getElementById("min-num").value);
+            max = parseInt(document.getElementById("max-num").value);
+            timeLeft = selectedDuration * 60;
+
+            document.getElementById("settings").classList.add("hidden");
+            document.getElementById("player-screen").classList.remove("hidden");
+        }
+
+        function startGame() {
+            document.getElementById("keyboard").classList.remove("hidden");
+            const name = document.getElementById("player-name").value.trim();
+            if (!name) {
+                alert("Schrijf jouw naam !");
+                return;
+            }
+
+            totalQuestions = 0;
+            correctAnswers = 0;
+            document.getElementById("score").textContent = "";
+            document.getElementById("timer").textContent = formatTime(timeLeft);
+            document.getElementById("timer").classList.remove("hidden");
+            document.getElementById("point-counter").classList.remove("hidden");
+            updatePointCounter();
+            document.getElementById("player-screen").classList.add("hidden");
+            document.getElementById("split-tree").classList.remove("hidden");
+            document.getElementById("keyboard").classList.remove("hidden");
+
+            timerInterval = setInterval(updateTimer, 1000);
+            nextQuestion();
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `Tijd over: ${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById("timer").textContent = formatTime(timeLeft);
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                endGame();
+            }
+        }
+
+        function updatePointCounter() {
+            document.getElementById("point-counter").textContent = `Punten: ${correctAnswers} / ${totalQuestions}`;
+        }
+
+        function endGame() {
+            const name = document.getElementById("player-name").value.trim();
+            const percentCorrect = totalQuestions === 0 ? 0 : correctAnswers / totalQuestions;
+            document.getElementById("score").textContent = `${name}, you answered ${totalQuestions} questions, with ${correctAnswers} correct!`;
+
+
+            document.getElementById("keyboard").classList.add("hidden");
+            document.getElementById("score").classList.remove("hidden");
+            document.getElementById("split-tree").classList.add("hidden");
+            document.getElementById("keyboard").classList.add("hidden");
+            document.getElementById("score-bar-container").classList.remove("hidden");
+            document.getElementById("timer").classList.add("hidden");
+            renderScoreBar(percentCorrect);
+
+
+
+
+            const rate = correctAnswers / (timeLeft + (totalQuestions > 0 ? (totalQuestions * 8) : 1)); // s&eacute;curisation
+            const actualDuration = selectedDuration * 60;
+            const funnyImage = document.getElementById("funny-image");
+
+            if (correctAnswers / actualDuration > 1 / 8) {
+                document.getElementById("score").textContent = `Flink, ${name} &#9786; `;
+                const randomIndex = Math.floor(Math.random() * funnyImages.length);
+                funnyImage.src = funnyImages[randomIndex];
+                funnyImage.classList.remove("hidden");
+            } else {
+                document.getElementById("score").textContent = `Nog een beetje oefenen, ${name}`;
+                funnyImage.classList.add("hidden");
+            }
+        }
+
+
+        function renderScoreBar(ratio) {
+            const container = document.getElementById("score-bar-container");
+            container.innerHTML = "";
+
+            const greenWidth = Math.round(ratio * 100);
+            const redWidth = 100 - greenWidth;
+
+            const greenBar = document.createElement("div");
+            greenBar.className = "score-segment green";
+            greenBar.style.width = `${greenWidth}%`;
+
+
+            const redBar = document.createElement("div");
+            redBar.className = "score-segment red";
+            redBar.style.width = `${redWidth}%`;
+
+            container.appendChild(greenBar);
+            container.appendChild(redBar);
+        }
+
+        function nextQuestion() {
+            const total = Math.floor(Math.random() * (max - min + 1)) + min;
+            const known = Math.floor(Math.random() * total);
+            const missing = total - known;
+
+            document.getElementById("tree-top-number").textContent = total;
+            document.getElementById("known-part").textContent = known;
+            const missingPart = document.getElementById("missing-part");
+            missingPart.textContent = "?";
+            missingPart.className = "tree-value";
+
+            currentMissing = missing;
+
+            const keyboard = document.getElementById("keyboard");
+            keyboard.innerHTML = "";
+            for (let i = 0; i <= 10; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.className = "key-button";
+                btn.onclick = () => handleAnswer(i);
+                keyboard.appendChild(btn);
+            }
+        }
+
+        function handleAnswer(selected) {
+            totalQuestions++;
+            const isCorrect = selected === currentMissing;
+            if (isCorrect) correctAnswers++;
+            updatePointCounter();
+
+            const missingPart = document.getElementById("missing-part");
+            missingPart.textContent = selected;
+            missingPart.classList.add(isCorrect ? "correct" : "incorrect");
+
+            setTimeout(() => {
+                nextQuestion();
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
