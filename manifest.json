@@ -1,6 +1,6 @@
 {
-  "name": "Timer App",
-  "short_name": "Timer",
+  "name": "Splitsen App",
+  "short_name": "Splitsen",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
