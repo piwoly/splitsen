@@ -15,7 +15,7 @@
     <style>
         body {
             font-family: sans-serif;
-            background-color: #F0F3BD;
+            background-color: #edae49;
             text-align: center;
             margin: 0;
             padding: 0;
@@ -77,11 +77,11 @@
         }
 
         .correct {
-            background-color: #b6fcb6;
+            background-color: #00798c;
         }
 
         .incorrect {
-            background-color: #fcb6b6;
+            background-color: #d1495b;
         }
 
         .keyboard {
@@ -120,7 +120,7 @@
             font-size: 24px;
             padding: 10px 20px;
             margin-top: 20px;
-            background-color: #02C39A;
+            background-color: #003d5b;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -136,7 +136,7 @@
           }
 
        button.selected {
-               background-color: #4CAF50 !important;
+               background-color: #30638e !important;
               
               
          }
@@ -154,11 +154,11 @@
         }
 
         .green {
-            background-color: #32cd32;
+            background-color: #00798c;
         }
 
         .red {
-            background-color: #ff6347;
+            background-color: #d1495b;
         }
     </style>
 </head>
@@ -308,9 +308,7 @@
         function endGame() {
             const name = document.getElementById("player-name").value.trim();
             const percentCorrect = totalQuestions === 0 ? 0 : correctAnswers / totalQuestions;
-            document.getElementById("score").textContent = `${name}, you answered ${totalQuestions} questions, with ${correctAnswers} correct!`;
-
-
+        
             document.getElementById("keyboard").classList.add("hidden");
             document.getElementById("score").classList.remove("hidden");
             document.getElementById("split-tree").classList.add("hidden");
