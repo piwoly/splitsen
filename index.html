@@ -325,7 +325,7 @@
             const funnyImage = document.getElementById("funny-image");
 
             if (correctAnswers / actualDuration > 1 / 8) {
-                document.getElementById("score").textContent = `Flink, ${name} &#9786; `;
+                document.getElementById("score").textContent = `Flink, ${name} :-) `;
                 const randomIndex = Math.floor(Math.random() * funnyImages.length);
                 funnyImage.src = funnyImages[randomIndex];
                 funnyImage.classList.remove("hidden");
