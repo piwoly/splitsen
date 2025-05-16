@@ -165,7 +165,7 @@
 
 <body>
     <div id="game-container">
-        <h1 id="title">Splitsen</h1>
+        <h1>Splitsen</h1>
 
         <!-- Juf Settings -->
         <div id="settings">
@@ -333,35 +333,6 @@
                 document.getElementById("score").textContent = `Nog een beetje oefenen, ${name}`;
                 funnyImage.classList.add("hidden");
             }
-
-            
-const title = document.getElementById("title");
-title.innerHTML = `<a href="#" id="return-link">Splitsen</a>`;
-
-// Empêche de créer plusieurs fois le lien
-if (!document.getElementById("return-link").dataset.listenerAdded) {
-    const link = document.getElementById("return-link");
-    link.dataset.listenerAdded = "true";
-
-    link.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        // Masquer les écrans du jeu et score
-        document.getElementById("score-bar-container").classList.add("hidden");
-        document.getElementById("score").classList.add("hidden");
-        document.getElementById("split-tree").classList.add("hidden");
-        document.getElementById("keyboard").classList.add("hidden");
-        document.getElementById("timer").classList.add("hidden");
-        document.getElementById("funny-image").classList.add("hidden");
-
-        // Montrer l’écran de départ
-        document.getElementById("player-screen").classList.remove("hidden");
-
-        // Remettre le titre sans lien
-        title.innerText = "Splitsen";
-    });
-}
-
           
         }
 
