@@ -127,6 +127,20 @@
             color: white;
         }
 
+
+         button {
+            margin: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: white;
+          }
+
+       button.selected {
+               background-color: #4CAF50;
+               color: magenta;
+               box-shadow:0 0 5px 1px black;
+         }
+
         #score-bar-container {
             width: 80%;
             height: 30px;
@@ -186,20 +200,6 @@
                 selectDuration(4);
             </script>
 
-            <style>
-                button {
-                    margin: 5px;
-                    padding: 8px 12px;
-                    cursor: pointer;
-                    color: white;
-                }
-
-                button.selected {
-                    background-color: #4CAF50;
-                    color: magenta;
-                    box-shadow:0 0 20px 1px white;
-                }
-            </style>
             <br>
             <button onclick="goToPlayerScreen()">Ok</button>
         </div>
