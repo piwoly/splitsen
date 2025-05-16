@@ -334,23 +334,33 @@
                 funnyImage.classList.add("hidden");
             }
 
-            document.getElementById("score-bar").style.display = "block";
-            const title = document.getElementById("title");
-            title.innerHTML = `<a href="#" id="return-link">Splitsen</a>`;
-
-            document.getElementById("return-link").addEventListener("click", function (e) {
-            e.preventDefault();
-
-            // Cache la barre de score et autre chose si besoin
-            document.getElementById("score-bar-container").style.display = "none";
-
-            // Affiche l’écran où le joueur écrit son nom
-            document.getElementById("player-screen").style.display = "block";
-
-            // (optionnel) Remettre le titre à son état initial
-            title.innerText = "Splitsen";
-    });
             
+const title = document.getElementById("title");
+title.innerHTML = `<a href="#" id="return-link">Splitsen</a>`;
+
+// Empêche de créer plusieurs fois le lien
+if (!document.getElementById("return-link").dataset.listenerAdded) {
+    const link = document.getElementById("return-link");
+    link.dataset.listenerAdded = "true";
+
+    link.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Masquer les écrans du jeu et score
+        document.getElementById("score-bar-container").classList.add("hidden");
+        document.getElementById("score").classList.add("hidden");
+        document.getElementById("split-tree").classList.add("hidden");
+        document.getElementById("keyboard").classList.add("hidden");
+        document.getElementById("timer").classList.add("hidden");
+        document.getElementById("funny-image").classList.add("hidden");
+
+        // Montrer l’écran de départ
+        document.getElementById("player-screen").classList.remove("hidden");
+
+        // Remettre le titre sans lien
+        title.innerText = "Splitsen";
+    });
+}
 
           
         }
