@@ -165,7 +165,7 @@
 
 <body>
     <div id="game-container">
-        <h1 id="title">Splitsen</h1>
+        <h1>Splitsen</h1>
 
         <!-- Juf Settings -->
         <div id="settings">
@@ -316,7 +316,7 @@
             document.getElementById("score-bar-container").classList.remove("hidden");
             document.getElementById("timer").classList.add("hidden");
             renderScoreBar(percentCorrect);
-            gameFinished = true;
+
 
 
 
@@ -394,17 +394,6 @@
                 nextQuestion();
             }, 1000);
         }
-
-        // Imaginons que tu as une variable qui indique si le jeu est terminé :
-let gameFinished = false; // Mets ceci à true quand le jeu se termine
-
-// Rendre le titre cliquable uniquement quand le jeu est terminé
-document.getElementById("title").addEventListener("click", function () {
-    if (gameFinished) {
-        document.getElementById("settings").style.display = "block";
-        document.getElementById("game-container").style.display = "none";
-    }
-});
     </script>
 </body>
 
