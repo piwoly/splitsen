@@ -9,9 +9,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     
     <link rel="manifest" href="manifest.json">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+
     <style>
         body {
             font-family: sans-serif;
@@ -94,7 +96,7 @@
 
         .key-button {
             font-size: 30px;
-            padding: 10px 20px;
+            padding: 10px 0;
             background-color: #003d5b;
             border: none;
             border-radius: 10px;
@@ -107,16 +109,31 @@
         }
 
 
-        #timer,
-        #score,
-        #point-counter {
+        #timer,#score, #point-counter {
             font-size: 24px;
             color: gray;
             margin: 10px;
         }
 
-        #settings button,
-        #player-screen button {
+	
+        #progress-container {
+          width: 100%;
+          height: 10px;
+          background-color: #f7ea81;
+          border-radius: 5px;
+          overflow: hidden;
+          margin-top: 5px;
+        }
+
+        #progress-bar {
+          height: 100%;
+          width: 100%;
+          background-color: #30638e;
+          transition: width 1s linear;
+        
+        }
+
+        #settings button, #player-screen button {
             font-size: 24px;
             padding: 10px 20px;
             margin-top: 20px;
@@ -128,17 +145,16 @@
         }
 
 
-         button {
+        button {
             margin: 5px;
             padding: 8px 12px;
             cursor: pointer;
             color: #EAEAEA;
           }
 
-       button.selected {
-               background-color: #30638e !important;
-              
-              
+
+        button.selected {
+               background-color: #30638e !important;     
          }
 
         #score-bar-container {
@@ -185,19 +201,7 @@
             </div>
 
             <script>
-                let selectedDuration = 4; // valeur par d&eacute;faut
-
-                function selectDuration(minutes) {
-                    selectedDuration = minutes;
-
-                    // Met &agrave; jour la surbrillance des boutons
-                    document.querySelectorAll('div > button').forEach(btn => {
-                        btn.classList.toggle('selected', parseInt(btn.textContent) === minutes);
-                    });
-                }
-
-                // S&eacute;lection initiale sur 4 minutes
-                selectDuration(4);
+             
             </script>
 
             <br>
@@ -213,6 +217,9 @@
         </div>
 
         <!-- Timer and Score -->
+        <div id="progress-container" class="hidden">  
+            <div id="progress-bar"></div>
+        </div>
         <div id="timer" class="hidden"></div>
         <div id="point-counter" class="hidden"></div>
         <div id="score" class="hidden"></div>
@@ -280,6 +287,21 @@
         let currentMissing = 0;
         let min, max;
 
+        //timer 
+        let selectedDuration = 4; // valeur par defaut
+
+        function selectDuration(minutes) {
+            selectedDuration = minutes;
+
+            // Met a jour la surbrillance des boutons
+            document.querySelectorAll('div > button').forEach(btn => {
+                btn.classList.toggle('selected', parseInt(btn.textContent) === minutes);
+            });
+        }
+
+        // Selection initiale sur 4 minutes
+        selectDuration(4);
+
         function goToPlayerScreen() {
             min = parseInt(document.getElementById("min-num").value);
             max = parseInt(document.getElementById("max-num").value);
@@ -288,6 +310,7 @@
             document.getElementById("settings").classList.add("hidden");
             document.getElementById("player-screen").classList.remove("hidden");
         }
+
 
         function startGame() {
             document.getElementById("keyboard").classList.remove("hidden");
@@ -307,7 +330,8 @@
             document.getElementById("player-screen").classList.add("hidden");
             document.getElementById("split-tree").classList.remove("hidden");
             document.getElementById("keyboard").classList.remove("hidden");
-
+            document.getElementById("progress-container").classList.remove("hidden");
+ 	        document.getElementById("progress-bar").style.width = "100%";
             timerInterval = setInterval(updateTimer, 1000);
             nextQuestion();
         }
@@ -321,6 +345,9 @@
         function updateTimer() {
             timeLeft--;
             document.getElementById("timer").textContent = formatTime(timeLeft);
+        const actualDuration = selectedDuration * 60;
+	    const progressPercent = (timeLeft / actualDuration) * 100;
+            document.getElementById("progress-bar").style.width = progressPercent + "%";
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 endGame();
@@ -343,10 +370,6 @@
             document.getElementById("timer").classList.add("hidden");
             renderScoreBar(percentCorrect);
 
-
-
-
-            const rate = correctAnswers / (timeLeft + (totalQuestions > 0 ? (totalQuestions * 8) : 1)); // s&eacute;curisation
             const actualDuration = selectedDuration * 60;
             const funnyImage = document.getElementById("funny-image");
 
@@ -385,7 +408,7 @@
 
         function nextQuestion() {
             const total = Math.floor(Math.random() * (max - min + 1)) + min;
-            const known = Math.floor(Math.random() * total);
+            const known = Math.floor(Math.random() * (total + 1));
             const missing = total - known;
 
             document.getElementById("tree-top-number").textContent = total;
