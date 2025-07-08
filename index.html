@@ -190,6 +190,21 @@
             <input type="number" id="min-num" value="1" min="1" max="10">
             <label for="max-num">Max huisje: </label>
             <input type="number" id="max-num" value="10" min="1" max="10">
+		<span id="error-msg" style="color: red; display: none;">Maximum 10 ☺ (voor het moment...)</span>
+			<script>
+			  const input = document.getElementById("max-num");
+			  const errorMsg = document.getElementById("error-msg");
+			
+			  input.addEventListener("input", () => {
+			    const value = parseInt(input.value, 10);
+			
+			    if (value > 10) {
+			      errorMsg.style.display = "inline";
+			    } else {
+			      errorMsg.style.display = "none";
+			    }
+			  });
+			</script>
             <br><br>
             <div>
                 <label>Tijd :</label><br>
