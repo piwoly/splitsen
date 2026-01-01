@@ -1,6 +1,19 @@
     <!DOCTYPE html>
 <html lang="en">
+<script>
+    /* === CONFIGURATION JUF === */
+    const DEFAULT_MIN = 7;
+    const DEFAULT_MAX = 7;
+    const MAX_LIMIT = 10;
 
+	    window.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("min-num").value = DEFAULT_MIN;
+        document.getElementById("max-num").value = DEFAULT_MAX;
+        document.getElementById("max-num").max = MAX_LIMIT;
+        document.getElementById("min-num").max = MAX_LIMIT;
+    });
+</script>
+	
 <head>
     <meta charset="UTF-8">
     <title>Splitsen</title>
@@ -197,9 +210,9 @@
             <h2>Juf Settings</h2>
             <label for="min-num">Min huisje: </label>
 			<!-- HIER MODIFIEREN VOOR NIEUW HUISJE-->
-            <input type="number" id="min-num" value="6" min="1" max="10">
+            <input type="number" id="min-num" value="7" min="1" max="10">
             <label for="max-num">Max huisje: </label>
-            <input type="number" id="max-num" value="6" min="1" max="10">
+            <input type="number" id="max-num" value="7" min="1" max="10">
 		<span id="error-msg" style="color: red; display: none;">Maximum 10 ☺ (voor het moment...)</span>
 			<script>
 			  const input = document.getElementById("max-num");
@@ -473,6 +486,7 @@
 </body>
 
 </html>
+
 
 
 
