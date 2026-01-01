@@ -284,38 +284,10 @@
 
     <script>
         const funnyImages = [
-            "https://i.giphy.com/l3V0lsGtTMSB5YNgc.webp", // panda qui danse
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXltdHlla3Y1NGdkN2kybmVuZG9vY2swcHoxaDBkeWEzeW0xdDQzOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4FGjrCVCnu01XOFi/giphy.gif", // chiot qui saute
-            "https://i.giphy.com/tnhtmbty3GXfi.webp", // loutre qui danse
-            "https://i.giphy.com/26AHG5KGFxSkUWw1i.webp", // licorne pixel
-            "https://i.giphy.com/k08Q4OCDcO3rCTfkJL.webp", // chien qui re&ccedil;oit m&eacute;daille
-            "https://i.giphy.com/PUITId5Avf9fLPpD3S.webp", // muppet
-            "https://i.giphy.com/I2tyB5A4HhKSfjUPu8.webp", //lego banane
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjJlNzZvc3g2anl6aHM4Y2w1OXcwcmhnMnVoNXlyYnQyMng1bWNmdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cYZN0wYiIY3iT7mo4Q/giphy.gif", //nanalan blocks
-            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExenJkcTQwcmR5aGdsemF0NjZrdnA4ejRlajhlbWtlaHNqZ3kwZ3p6cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ltoUStpCrqtOAcOV3Z/giphy.gif", // lego high5
-            "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnA5NnR2ZW9qendhNmE0cGhobDByNDRiOGpncnpzeWY0aGRzbmx6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/42JoESjCuOTCNjoXiS/giphy.gif", //lego dance
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnN6MHZoeDJ0YXdqZTNuaGJ2dHMyNGg5b3VwaGhiNHp4N2t4OThldSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/100JPq1ylYXEti/giphy.gif", //lego benny
-            "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnl0aDRkbm85dzQ3M3JlYjAybHhxMXZvNTd0bDU4Zmd5OGhheWo3NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9M1ryc3kRpXlLXE0Ro/giphy.gif", //lego dance
-            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHAxMGFvZXk3MzM5M2Q0bjdiZG0xNmQzamsxc2Q2eXFkZHplbXMxNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3q2QdPu0G9NEgZJ6/giphy.gif", //lego robin
-            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnJiZmttMDgwNGI3ZHhyOWJlNWkwYzRpNWJ3dXQzaTEyeXNzcjFmeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/b0VK26c9Ne0ak/giphy.gif", //lego batman
-            "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHo0N24xaTYwaDRkem5yenFpeGNxYjRvb29haGN5YWRpY2h2djAzbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4q8bXnHI4k7Wv9kY/giphy.gif", //lego girl
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2YxM2d5bHJlYXg5ZDU1cHZ2OWhlcnR4OHR3Mmtub2x5bzRkdTVqcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26DOyjoSDrJn75ui4/giphy.gif", //lego jester
-            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTgzenlsb2UxZTA5Mzg5c3Q0dzVkbW9ieGh6OXEzM2w2NGR6a2cyNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26DOuxsQf1ImXpEIg/giphy.gif", //lego gold
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnNnYnBkaXlrdHA0MmI1djFrN2l1bzI5b3p6cjUwdHFicHBsc2k5aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4q8smEhMD3ilRbd6/giphy.gif", //lego lift
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnFtajhhNTNqNDZydDBhNHV4cmV4NGh4azF1czFlZnBtdzBmbzhhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4q85ZYgdiaW2nPr2/giphy.gif", //lego cookie
-            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExb29uNGpyNDF1c2RkYXRwdzRibHFvZmgwNWZvdmY0YjhiMm12OHZzcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4q7VhGsL6BnXJrc4/giphy.gif", //lego astro
-            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHkydjZlOXV0aGp0ZzlvczFhZGp0MDJlMjE2c2V4YXQ3eHJyZGNwMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IdOGWunCy9gD8ofzd3/giphy.gif", //lego guitar
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOG0ydnByYTRvOHM2MWI1eG1rZ3VqZHFrbHRueGt2MTgwNm81bHFmZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LmxF4vxOBFxcTZ1riS/giphy.gif", //lego ninja
-            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDV0Mmo4ZW8zMWdqNnc0NmNvZ3Y5dHN0ZmRucHY1ZzByNTdsdm9waCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7aD8YEb3jUvcdqzC/giphy.gif", //lego heroes
-            "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHpvMzA4amt6YnA1cXV3ZDIya3Y5YndxcTJicnJ5d3VzMDNpczh6aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT1R9HVTnpLVbAZ0OI/giphy.gif", //lego starwars
-            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjViNHJnazlrMGdudXhhbTlhcDhyN3VxNDd0NzduaTcxaGlkZnV5MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26xBFdKhu1nhTa6DS/giphy.gif", //lego queen boss
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWdtZGp1a2VoZnFicWoxdHNhM3JhdDh1MjlrZDdmdTc2ZGc4NWwzZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gssbIsZKjQUH16w/giphy.gif", //lego cop
-            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3ZocWRrYnFzaHRrY3FkcTVjb2VqOGJwdmF3cGFoMzkwMTZxNzFmeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d1E0UiLOUgjSe0ms/giphy.gif", //lego handshake
-            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTZqdjNodnR0bzMybW5rbzV2MzF5Z3N0OXFmMWh0MzVvdXpmeThzbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gsaZL3FDDZJTuEw/giphy.gif", //lego pizza
-            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTVrbTA3OXRyM3d3cndqMTg2ZWI3bDN3azVuNDQ0OWRjeG90dnF1aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sNccmbnI77b71ij1aJ/giphy.gif", //lego brick jump
-            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDZ5cHFsdnY0ZnowOWtxZTVlOHk1ZGUydHFkdG5qZTRjdHpxaXFrbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QZzRFr2kS0HPyMDKnH/giphy.gif", //lego toystory
-            "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTR1bmNvbzBobDg1amszdGxvbm5zNHhpZGM0bTk0NmI4Mnl1N3cxNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eKIMFmq7OayZPWkKHa/giphy.gif", //lego dino
-            
+      
+			"https://media4.giphy.com/media/DzX3QKZmUTMujBBB8F/200.webp", //frogdrink
+			"https://media4.giphy.com/media/x2B6cKOOsNF43x11kX/200.webp", //frogdrink again
+			
         ];
         let totalQuestions = 0;
         let correctAnswers = 0;
@@ -485,6 +457,7 @@
 </body>
 
 </html>
+
 
 
 
