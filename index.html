@@ -6,6 +6,10 @@
     const DEFAULT_MAX = 10;
     const MAX_LIMIT = 10;
 
+	
+        //timer 
+        let selectedDuration = 5; // valeur par defaut
+
 	    window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("min-num").value = DEFAULT_MIN;
         document.getElementById("max-num").value = DEFAULT_MAX;
@@ -402,8 +406,6 @@
         let currentMissing = 0;
         let min, max;
 
-        //timer 
-        let selectedDuration = 4; // valeur par defaut
 
         function selectDuration(minutes) {
             selectedDuration = minutes;
