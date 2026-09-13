@@ -5,10 +5,10 @@
     const DEFAULT_MIN = 0;
     const DEFAULT_MAX = 10;
     const MAX_LIMIT = 10;
+	const DEFAULT_DURATION = 5; // 4 ou 5 minutes
 
 	
-        //timer 
-        let selectedDuration = 5; // valeur par defaut
+     
 
 	    window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("min-num").value = DEFAULT_MIN;
@@ -416,8 +416,11 @@
             });
         }
 
+		   //timer 
+		let selectedDuration = DEFAULT_DURATION;
+		
         // Selection initiale sur 4 minutes
-        selectDuration(4);
+      selectDuration(DEFAULT_DURATION);
 
         function goToPlayerScreen() {
             min = parseInt(document.getElementById("min-num").value);
